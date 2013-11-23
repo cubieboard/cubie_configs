@@ -1,3 +1,15 @@
+;A20 PAD application
+;-------------------------------------------------------------------------------
+; 说明：
+;   1. 脚本中的字符串区分大小写，用户可以修改"="后面的数值，但是不要修改前面的字符串     
+;   2. 新增主键和子键的名称必须控制在32个字符以内，不包括32个
+;   3. 所以的注释以“;”开始，单独占据一行
+;   4. 注释不可和配置项同行，例如：主键和子健后面不能添加任何形式的注释
+;
+; gpio的描述形式：Port:端口+组内序号<功能分配><内部电阻状态><驱动能力><输出电平状态>
+;           例如：port:PA0<0><default><default><default>
+;-------------------------------------------------------------------------------
+
 [product]
 version             = "100"
 machine             = "cubietruck"
@@ -63,7 +75,7 @@ uart_debug_tx            =port:PF2<4><1><default><default>
 uart_debug_rx            =port:PF4<4><1><default><default>
 
 [jtag_para]
-jtag_enable         = 1
+jtag_enable         = 0
 jtag_ms             = port:PB14<3><default><default><default>
 jtag_ck             = port:PB15<3><default><default><default>
 jtag_do             = port:PB16<3><default><default><default>
@@ -141,24 +153,14 @@ twi0_scl            = port:PB0<2><default><default><default>
 twi0_sda            = port:PB1<2><default><default><default>
 
 [twi1_para]
-twi1_used           = 1
-twi1_scl            = port:PB18<2><default><default><default>
-twi1_sda            = port:PB19<2><default><default><default>
+twi1_used = 0
+twi1_scl = port:PB18<2><default><default><default>
+twi1_sda = port:PB19<2><default><default><default>
 
 [twi2_para]
-twi2_used           = 1
-twi2_scl            = port:PB20<2><default><default><default>
-twi2_sda            = port:PB21<2><default><default><default>
-
-[twi3_para]
-twi3_used           = 1
-twi3_scl            = port:PI0<3><default><default><default>
-twi3_sda            = port:PI1<3><default><default><default>
-
-[twi4_para]
-twi4_used           = 1
-twi4_scl            = port:PI2<3><default><default><default>
-twi4_sda            = port:PI3<3><default><default><default>
+twi2_used = 0
+twi2_scl = port:PB20<2><default><default><default>
+twi2_sda = port:PB21<2><default><default><default>
 
 ;-------------------------------------------------------------------------------
 ;uart configuration
@@ -327,19 +329,23 @@ gpio_pin_2  = port:PH10<0><default><default><0>
 
 [leds_para]
 leds_used = 1
-leds_num = 3
+leds_num = 4
 leds_pin_1 = port:PH21<1><default><default><0>
 leds_name_1 = "blue:ph21:led1"
 leds_default_1 = 0
 leds_trigger_1 = "heartbeat"
-leds_pin_2 = port:PH11<1><default><default><0>
-leds_name_2 = "blue:ph11:led3"
+leds_pin_2 = port:PH20<1><default><default><0>
+leds_name_2 = "orange:ph20:led2"
 leds_default_2 = 0
-leds_trigger_2 = "heartbeat"
-leds_pin_3 = port:PH07<1><default><default><0>
-leds_name_3 = "blue:ph07:led4"
+leds_trigger_2 = "cpu0"
+leds_pin_3 = port:PH11<1><default><default><0>
+leds_name_3 = "white:ph11:led3"
 leds_default_3 = 0
-leds_trigger_3 = "heartbeat"
+leds_trigger_3 = "cpu1"
+leds_pin_4 = port:PH07<1><default><default><0>
+leds_name_4 = "green:ph07:led4"
+leds_default_4 = 1
+leds_trigger_4 = "mmc0"
 
 
 ;-------------------------------------------------------------------------------
@@ -391,7 +397,7 @@ good_block_ratio    = 0
 disp_init_enable        = 1
 disp_mode               = 0
 
-screen0_output_type     = 3
+screen0_output_type     = 4
 screen0_output_mode     = 4
 
 screen1_output_type     = 0
@@ -1362,7 +1368,7 @@ key_max			    = 40
 ;
 ;----------------------------------------------------------------------------------
 [dvfs_table]
-max_freq = 1008000000
+max_freq = 912000000
 min_freq = 720000000
 normal_freq = 720000000
 
